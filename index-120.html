@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRIDGE — Você sonha, nós construímos a ponte</title>
+  <meta name="description" content="Transformamos seu conhecimento em um app profissional. Você cria o conteúdo, a Bridge entrega o app." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --black2:  #111111;
+      --black3:  #1A1A1A;
+      --white:   #FFFFFF;
+      --silver:  #C8C8C8;
+      --silver2: #E8E8E8;
+      --silver3: #8A8A8A;
+      --red:     #C0392B;
+      --bg:      #F5F5F5;
+      --border:  rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── BARRA TOPO ── */
+    .topbar {
+      background: var(--red);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 200;
+    }
+    .topbar span { opacity: 0.85; }
+    .topbar strong { opacity: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 36px; left: 0; right: 0;
+      z-index: 100;
+      transition: background 0.3s, top 0.3s;
+    }
+    nav.scrolled {
+      top: 0;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-bar {
+      width: 3px;
+      height: 22px;
+      background: linear-gradient(180deg, var(--silver2), var(--silver3));
+      border-radius: 2px;
+    }
+    .logo-text {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      color: var(--black) !important;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ── HERO COM VÍDEO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(10,10,10,0.3) 0%,
+        rgba(10,10,10,0.5) 50%,
+        rgba(10,10,10,0.95) 100%
+      );
+    }
+    /* Linha vermelha esquerda — assinatura Bridge */
+    .hero::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 15%; bottom: 15%;
+      width: 3px;
+      background: linear-gradient(180deg, transparent, var(--red), transparent);
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 140px 24px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--silver3);
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--silver3);
+    }
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 80px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -2.5px;
+      margin-bottom: 28px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto 48px;
+      font-weight: 400;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--silver2) 0%, var(--silver) 100%);
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 20px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 8px 32px rgba(200,200,200,0.15);
+    }
+    .hero-cta:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 16px 48px rgba(200,200,200,0.25); }
+    .hero-cta-arrow {
+      width: 32px;
+      height: 32px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 56px;
+      margin-top: 80px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+    }
+    .hero-stat-value {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── SEÇÕES ── */
+    .section { padding: 112px 0; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--silver3);
+      margin-bottom: 20px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--red);
+    }
+    .section-title {
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.75;
+      max-width: 520px;
+      font-weight: 400;
+    }
+
+    /* ── COMO FUNCIONA ── */
+    .how { background: var(--black2); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 72px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .step {
+      background: var(--black2);
+      padding: 48px 40px;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .step:hover { background: var(--black3); }
+    .step-num {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--red);
+      margin-bottom: 28px;
+      display: block;
+    }
+    .step-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      display: block;
+      filter: brightness(0.85) contrast(1.05);
+      transition: filter 0.3s;
+    }
+    .step:hover .step-img { filter: brightness(1) contrast(1.1); }
+    .step h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .step p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.75; }
+    @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } }
+
+    /* ── ENTREGÁVEIS ── */
+    .deliverables { background: var(--black); }
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 72px;
+    }
+    .d-card {
+      background: var(--black2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 36px 32px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .d-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--silver3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .d-card:hover { border-color: rgba(200,200,200,0.2); transform: translateY(-4px); }
+    .d-card:hover::before { opacity: 1; }
+    .d-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: block;
+      filter: brightness(0.8) contrast(1.05);
+      transition: filter 0.3s;
+    }
+    .d-card:hover .d-img { filter: brightness(0.95) contrast(1.1); }
+    .d-card h3 { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 10px; letter-spacing: -0.3px; }
+    .d-card p { font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+    @media (max-width: 768px) { .deliverables-grid { grid-template-columns: 1fr; } }
+
+    /* ── DEMO ── */
+    .demo { background: var(--black2); }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 72px;
+    }
+    .demo-phones {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .phone {
+      width: 175px;
+      background: #111;
+      border-radius: 36px;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+      flex-shrink: 0;
+    }
+    .phone:first-child { margin-top: 48px; }
+    .phone-notch {
+      height: 10px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-notch::after {
+      content: '';
+      width: 40px;
+      height: 5px;
+      background: #1a1a1a;
+      border-radius: 3px;
+    }
+    .phone-screen {
+      background: #0a0a0a;
+      aspect-ratio: 9/19;
+      display: flex;
+      flex-direction: column;
+    }
+    .ps-header {
+      background: #000;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .ps-tag { font-size: 6px; font-weight: 800; color: rgba(200,200,200,0.4); letter-spacing: 1.5px; margin-bottom: 3px; }
+    .ps-title { font-size: 13px; font-weight: 900; color: #fff; }
+    .ps-body { padding: 10px; flex: 1; overflow: hidden; }
+    .ps-card {
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 7px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .ps-card-label { font-size: 6px; color: rgba(255,255,255,0.25); margin-bottom: 4px; letter-spacing: 0.5px; }
+    .ps-card-title { font-size: 9px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+    .ps-bar { height: 2px; background: rgba(255,255,255,0.08); border-radius: 1px; overflow: hidden; }
+    .ps-fill { height: 100%; border-radius: 1px; background: linear-gradient(90deg, var(--silver3), var(--silver2)); }
+    .ps-tabs {
+      display: flex;
+      background: #000;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 8px 0 14px;
+    }
+    .ps-tab { flex: 1; text-align: center; font-size: 6.5px; color: rgba(255,255,255,0.25); font-weight: 600; }
+    .ps-tab.on { color: var(--silver2); }
+    .demo-features { }
+    .df {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .df:last-child { border-bottom: none; }
+    .df-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--silver2), var(--silver3));
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+    .df h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; letter-spacing: -0.3px; }
+    .df p { font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+    @media (max-width: 768px) { .demo-grid { grid-template-columns: 1fr; } .demo-phones { display: none; } }
+
+    /* ── DEPOIMENTOS ── */
+    .testimonials { background: var(--black); }
+    .t-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 72px;
+    }
+    .t-card {
+      background: var(--black2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 36px 32px;
+    }
+    .t-stars { color: var(--silver); font-size: 14px; margin-bottom: 20px; letter-spacing: 3px; }
+    .t-quote {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      font-style: italic;
+      font-weight: 300;
+    }
+    .t-quote::before { content: '\201C'; color: var(--silver3); font-size: 32px; line-height: 0; vertical-align: -12px; margin-right: 4px; font-style: normal; }
+    .t-author { display: flex; align-items: center; gap: 12px; }
+    .t-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.12);
+      object-fit: cover;
+      overflow: hidden;
+    }
+    .t-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .t-role { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+    @media (max-width: 768px) { .t-grid { grid-template-columns: 1fr; } }
+
+    /* ── PLANOS ── */
+    .pricing { background: var(--black2); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 72px;
+      max-width: 800px;
+    }
+    .p-card {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 44px 40px;
+      position: relative;
+    }
+    .p-card.featured {
+      border-color: rgba(200,200,200,0.2);
+      background: var(--black3);
+    }
+    .p-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(232,232,232,0.15), rgba(200,200,200,0.05), transparent);
+      pointer-events: none;
+    }
+    .p-badge {
+      position: absolute;
+      top: -13px; left: 40px;
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .p-name { font-size: 11px; font-weight: 700; color: var(--silver3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+    .p-price { font-size: 48px; font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1; margin-bottom: 6px; }
+    .p-period { font-size: 13px; color: rgba(255,255,255,0.3); margin-bottom: 32px; }
+    .p-divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 32px; }
+    .p-features { list-style: none; margin-bottom: 40px; }
+    .p-features li {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      padding: 9px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .p-features li:last-child { border-bottom: none; }
+    .p-features li::before { content: '✓'; color: var(--silver); font-weight: 800; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+    .p-btn {
+      display: block;
+      text-align: center;
+      padding: 18px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .p-btn-outline { border: 1.5px solid rgba(255,255,255,0.15); color: var(--white); }
+    .p-btn-outline:hover { border-color: var(--silver3); color: var(--silver2); }
+    .p-btn-silver { background: linear-gradient(135deg, var(--silver2), var(--silver)); color: var(--black); }
+    .p-btn-silver:hover { opacity: 0.9; transform: translateY(-1px); }
+    @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    /* ── FAQ ── */
+    .faq { background: var(--black); }
+    .faq-list { margin-top: 64px; max-width: 720px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      gap: 20px;
+    }
+    .faq-question span:first-child { font-size: 16px; font-weight: 600; color: var(--white); line-height: 1.4; }
+    .faq-icon { font-size: 20px; color: var(--silver3); flex-shrink: 0; transition: transform 0.3s; font-style: normal; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.8;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 24px; }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--black2);
+      padding: 140px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, transparent, var(--red), transparent);
+    }
+    .cta-final::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, transparent, var(--red), transparent);
+    }
+    /* Glow prateado de fundo */
+    .cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(200,200,200,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-final h2 {
+      font-size: clamp(34px, 5.5vw, 64px);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cta-final h2 .hl {
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cta-final p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.35);
+      max-width: 440px;
+      margin: 0 auto 52px;
+      line-height: 1.75;
+      position: relative;
+    }
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      max-width: 460px;
+      margin: 0 auto 16px;
+      position: relative;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 18px 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      font-size: 15px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .cta-input::placeholder { color: rgba(255,255,255,0.25); }
+    .cta-input:focus { border-color: var(--silver3); }
+    .cta-btn {
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      color: var(--black);
+      border: none;
+      padding: 18px 32px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .cta-note { font-size: 12px; color: rgba(255,255,255,0.2); position: relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505;
+      padding: 52px 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.18); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.5); }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- BARRA TOPO -->
+<div class="topbar">
+  <span>Vagas limitadas · </span>
+  <strong>Entrega em 7 dias úteis · Fale com a Bridge agora</strong>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="inner">
+    <a href="#" class="logo">
+      <div class="logo-bar"></div>
+      <span class="logo-text">BRIDGE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#entregaveis">O que você recebe</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#contato" class="nav-cta">Quero meu app →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <!-- Vídeo de fundo — tecnologia/digital -->
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="https://videos.pexels.com/video-files/3129977/3129977-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Plataforma · Apps de Curso · Brasil</div>
+    <h1>
+      Você sonha.<br/>
+      Nós construímos<br/>
+      <span class="highlight">a ponte.</span>
+    </h1>
+    <p class="hero-sub">
+      Transformamos seu conhecimento em um app profissional.<br/>
+      Você cria o conteúdo — a Bridge entrega o app.
+    </p>
+    <a href="#contato" class="hero-cta">
+      Quero meu app agora
+      <span class="hero-cta-arrow">→</span>
+    </a>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-value">7 dias</div>
+        <div class="hero-stat-label">Entrega garantida</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">iOS + Android</div>
+        <div class="hero-stat-label">Nas duas lojas</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">100%</div>
+        <div class="hero-stat-label">Personalizado</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">Sem código</div>
+        <div class="hero-stat-label">Você não precisa saber nada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section how" id="como-funciona">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">Como funciona</span>
+      <h2 class="section-title">Três passos.<br/>Um app pronto.</h2>
+      <p class="section-sub">Sem precisar entender de tecnologia. Sem código. Você foca no que sabe — o resto é com a gente.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <span class="step-num">01</span>
+        <img class="step-img" src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80" alt="Criar conteúdo" loading="lazy" />
+        <h3>Você traz o conteúdo</h3>
+        <p>Seu curso, sua expertise, seu jeito de ensinar. Vídeo, texto, áudio ou slides — do jeito que funciona para você.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <img class="step-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="Desenvolvimento" loading="lazy" />
+        <h3>A Bridge constrói</h3>
+        <p>Montamos seu app com a sua identidade visual, seus módulos, suas aulas e tudo que seu aluno precisa.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <img class="step-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="Crescimento" loading="lazy" />
+        <h3>Você vende e cresce</h3>
+        <p>App na loja, alunos comprando, conteúdo entregue com profissionalismo. A ponte faz o trabalho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTREGÁVEIS -->
+<section class="section deliverables" id="entregaveis">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">O que você recebe</span>
+      <h2 class="section-title">Tudo que seu curso<br/>precisa para vender.</h2>
+      <p class="section-sub">Cada app entregue pela Bridge é completo, funcional e pronto para o mercado.</p>
+    </div>
+    <div class="deliverables-grid">
+      <div class="d-card reveal">
+        <img class="d-img" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80" alt="App iOS e Android" loading="lazy" />
+        <h3>App nativo iOS & Android</h3>
+        <p>Disponível para download na App Store e Google Play com o nome e a identidade visual do seu curso.</p>
+      </div>
+      <div class="d-card reveal">
+        <img class="d-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80" alt="Player de vídeo" loading="lazy" />
+        <h3>Player de vídeo completo</h3>
+        <p>Controle de velocidade, progresso salvo, modo tela cheia. Experiência de aprendizado profissional.</p>
+      </div>
+      <div class="d-card reveal">
+        <img class="d-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" alt="Aulas interativas" loading="lazy" />
+        <h3>Aulas interativas</h3>
+        <p>Quiz, flashcards, exercícios passo a passo e checklists — conteúdo que engaja e garante o aprendizado.</p>
+      </div>
+      <div class="d-card reveal">
+        <img class="d-img" src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&q=80" alt="Progresso e certificado" loading="lazy" />
+        <h3>Progresso e certificado</h3>
+        <p>Seus alunos acompanham a evolução em tempo real e recebem certificado ao concluir o curso.</p>
+      </div>
+      <div class="d-card reveal">
+        <img class="d-img" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80" alt="Identidade visual" loading="lazy" />
+        <h3>Sua identidade visual</h3>
+        <p>Cores, logo, fontes e estilo do jeito que você quer. O app parece que foi feito por uma grande empresa.</p>
+      </div>
+      <div class="d-card reveal">
+        <img class="d-img" src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80" alt="Conteúdo protegido" loading="lazy" />
+        <h3>Conteúdo protegido</h3>
+        <p>Acesso restrito por login, módulos bloqueados por plano e controle total sobre quem vê o quê.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="section demo" id="demo">
+  <div class="container">
+    <div class="demo-grid">
+      <div class="reveal">
+        <span class="section-eyebrow">Veja na prática</span>
+        <h2 class="section-title">Um app que seus alunos vão querer usar todo dia.</h2>
+        <p class="section-sub">Design premium, navegação intuitiva e experiência que faz seus alunos voltarem.</p>
+        <div style="margin-top: 48px;">
+          <div class="df">
+            <div class="df-dot"></div>
+            <div>
+              <h4>Onboarding impactante</h4>
+              <p>Primeiro acesso que apresenta seu curso com profissionalismo e já engaja o aluno antes da primeira aula.</p>
+            </div>
+          </div>
+          <div class="df">
+            <div class="df-dot"></div>
+            <div>
+              <h4>Módulos organizados</h4>
+              <p>Conteúdo estruturado com progresso visual claro, acesso intuitivo e bloqueio por plano.</p>
+            </div>
+          </div>
+          <div class="df">
+            <div class="df-dot"></div>
+            <div>
+              <h4>Experiência premium</h4>
+              <p>Design que transmite autoridade e justifica o preço do seu curso.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-phones reveal">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="ps-header">
+              <div class="ps-tag">BEM-VINDA DE VOLTA</div>
+              <div class="ps-title">Ana Clara</div>
+            </div>
+            <div class="ps-body">
+              <div class="ps-card" style="background:rgba(200,200,200,0.06); border-color:rgba(200,200,200,0.1);">
+                <div class="ps-card-label">SEU PROGRESSO</div>
+                <div class="ps-card-title" style="font-size:15px; letter-spacing:-0.5px;">42%</div>
+                <div class="ps-bar" style="margin-top:6px;"><div class="ps-fill" style="width:42%;"></div></div>
+              </div>
+              <div style="font-size:6px; color:rgba(255,255,255,0.2); margin:8px 0 5px; letter-spacing:1px; text-transform:uppercase;">Continue de onde parou</div>
+              <div class="ps-card">
+                <div class="ps-card-label">Módulo 2</div>
+                <div class="ps-card-title">Copywriting para iniciantes</div>
+                <div style="font-size:6.5px; color:var(--silver3); margin-top:4px; font-weight:600;">▶ Vídeo · 22min</div>
+              </div>
+              <div class="ps-card">
+                <div class="ps-card-label">Módulo 1 · Concluído ✓</div>
+                <div class="ps-card-title">Fundamentos</div>
+                <div class="ps-bar" style="margin-top:5px;"><div class="ps-fill" style="width:100%;"></div></div>
+              </div>
+            </div>
+            <div class="ps-tabs">
+              <div class="ps-tab on">⌂ Início</div>
+              <div class="ps-tab">▦ Módulos</div>
+              <div class="ps-tab">◎ Perfil</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="ps-header" style="padding-top:18px;">
+              <div class="ps-title">Módulos</div>
+              <div style="font-size:6px; color:rgba(255,255,255,0.25); margin-top:3px;">8 de 16 aulas concluídas</div>
+            </div>
+            <div class="ps-body">
+              <div class="ps-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                  <div class="ps-card-title">📐 Fundamentos</div>
+                  <div style="font-size:7px; color:var(--silver2); font-weight:800;">100%</div>
+                </div>
+                <div class="ps-bar"><div class="ps-fill" style="width:100%;"></div></div>
+              </div>
+              <div class="ps-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                  <div class="ps-card-title">✍️ Conteúdo que Vende</div>
+                  <div style="font-size:7px; color:var(--silver2); font-weight:800;">50%</div>
+                </div>
+                <div class="ps-bar"><div class="ps-fill" style="width:50%;"></div></div>
+              </div>
+              <div class="ps-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                  <div class="ps-card-title">🔒 Tráfego Pago</div>
+                  <div style="font-size:7px; color:rgba(255,255,255,0.2); font-weight:800;">PRO</div>
+                </div>
+                <div class="ps-bar"><div class="ps-fill" style="width:0%;"></div></div>
+              </div>
+              <div class="ps-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                  <div class="ps-card-title">🔒 Primeiro Cliente</div>
+                  <div style="font-size:7px; color:rgba(255,255,255,0.2); font-weight:800;">PRO</div>
+                </div>
+                <div class="ps-bar"><div class="ps-fill" style="width:0%;"></div></div>
+              </div>
+            </div>
+            <div class="ps-tabs">
+              <div class="ps-tab">⌂ Início</div>
+              <div class="ps-tab on">▦ Módulos</div>
+              <div class="ps-tab">◎ Perfil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="section testimonials" id="depoimentos">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">Quem já cruzou a ponte</span>
+      <h2 class="section-title">Criadores que transformaram<br/>conhecimento em negócio.</h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card reveal">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">Eu tinha o conteúdo pronto há dois anos mas travava na parte técnica. A Bridge entregou meu app em menos de uma semana. Minha primeira turma lotou em 48 horas.</p>
+        <div class="t-author">
+          <img class="t-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Camila Ferreira" loading="lazy" />
+          <div>
+            <div class="t-name">Camila Ferreira</div>
+            <div class="t-role">Coach de Carreira · São Paulo</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card reveal">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">Tentei plataformas estrangeiras mas nenhuma tinha o nível de personalização que a Bridge entrega. Meu app parece que custou 10 vezes mais do que paguei.</p>
+        <div class="t-author">
+          <img class="t-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="Rafael Mendes" loading="lazy" />
+          <div>
+            <div class="t-name">Rafael Mendes</div>
+            <div class="t-role">Professor de Marketing Digital · RJ</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card reveal">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">O que me surpreendeu foi a qualidade das aulas interativas. Meus alunos adoram o quiz e os flashcards. A taxa de conclusão subiu para 78%.</p>
+        <div class="t-author">
+          <img class="t-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Juliana Ramos" loading="lazy" />
+          <div>
+            <div class="t-name">Juliana Ramos</div>
+            <div class="t-role">Nutricionista e Criadora de Conteúdo · MG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section class="section pricing" id="planos">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">Investimento</span>
+      <h2 class="section-title">Escolha como<br/>cruzar a ponte.</h2>
+      <p class="section-sub">Sem mensalidade surpresa. Sem taxa por aluno. Você paga uma vez e o app é seu.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="p-card reveal">
+        <div class="p-name">Starter</div>
+        <div class="p-price">R$ 1.997</div>
+        <div class="p-period">pagamento único</div>
+        <div class="p-divider"></div>
+        <ul class="p-features">
+          <li>App iOS + Android</li>
+          <li>Até 2 módulos e 16 aulas</li>
+          <li>Player de vídeo</li>
+          <li>Login e cadastro de alunos</li>
+          <li>Sua identidade visual</li>
+          <li>Entrega em 7 dias úteis</li>
+          <li>30 dias de suporte</li>
+        </ul>
+        <a href="#contato" class="p-btn p-btn-outline">Começar agora →</a>
+      </div>
+      <div class="p-card featured reveal">
+        <div class="p-badge">Mais escolhido</div>
+        <div class="p-name">Pro</div>
+        <div class="p-price">R$ 3.497</div>
+        <div class="p-period">pagamento único</div>
+        <div class="p-divider"></div>
+        <ul class="p-features">
+          <li>App iOS + Android</li>
+          <li>Módulos e aulas ilimitados</li>
+          <li>Player de vídeo completo</li>
+          <li>Aulas interativas — quiz, flashcard</li>
+          <li>Certificado de conclusão</li>
+          <li>Identidade visual completa</li>
+          <li>Publicação nas lojas incluída</li>
+          <li>Entrega em 7 dias úteis</li>
+          <li>90 dias de suporte</li>
+        </ul>
+        <a href="#contato" class="p-btn p-btn-silver">Quero o Pro →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq" id="faq">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">Perguntas frequentes</span>
+      <h2 class="section-title">Tudo que você<br/>precisa saber.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Preciso saber programar para ter meu app?</span>
+          <i class="faq-icon">+</i>
+        </button>
+        <div class="faq-answer">Não. Você não precisa saber absolutamente nada de tecnologia. Você nos entrega o conteúdo e nós cuidamos de todo o resto — código, design, publicação nas lojas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Em quanto tempo meu app fica pronto?</span>
+          <i class="faq-icon">+</i>
+        </button>
+        <div class="faq-answer">O prazo padrão é de 7 dias úteis após o envio completo do conteúdo e aprovação do layout. Projetos mais complexos podem levar até 14 dias.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Meu app vai estar na App Store e no Google Play?</span>
+          <i class="faq-icon">+</i>
+        </button>
+        <div class="faq-answer">Sim. No plano Pro, a publicação nas lojas está incluída. No plano Starter, você pode publicar com orientação da nossa equipe ou contratar a publicação como serviço adicional.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Posso atualizar o conteúdo do app depois?</span>
+          <i class="faq-icon">+</i>
+        </button>
+        <div class="faq-answer">Sim. Atualizações de conteúdo podem ser contratadas após a entrega. Temos planos de manutenção mensais para quem precisa atualizar o app com frequência.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Que tipo de conteúdo posso colocar no app?</span>
+          <i class="faq-icon">+</i>
+        </button>
+        <div class="faq-answer">Vídeo, texto, PDF, quizzes, flashcards, exercícios interativos e checklists. Qualquer nicho funciona — cursos, mentorias, treinamentos corporativos, programas de coaching.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contato">
+  <div class="cta-glow"></div>
+  <div class="container">
+    <h2>Pronto para<br/>cruzar <span class="hl">a ponte?</span></h2>
+    <p>Deixe seu e-mail e entraremos em contato em até 24 horas para entender seu projeto.</p>
+    <div class="cta-form">
+      <input type="email" class="cta-input" placeholder="Seu melhor e-mail" id="cta-email" />
+      <button class="cta-btn" onclick="handleSubmit()">Quero meu app →</button>
+    </div>
+    <p class="cta-note">Sem spam. Sem compromisso. Só uma conversa.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="logo">
+        <div class="logo-bar"></div>
+        <span class="logo-text">BRIDGE</span>
+      </a>
+      <p class="footer-copy">© 2026 Bridge. Todos os direitos reservados.</p>
+      <div class="footer-links">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // CTA
+  function handleSubmit() {
+    const input = document.getElementById('cta-email');
+    const btn = input.nextElementSibling;
+    if (!input.value || !input.value.includes('@')) {
+      input.style.borderColor = '#C0392B';
+      input.focus();
+      return;
+    }
+    btn.textContent = 'Enviado! ✓';
+    btn.style.background = '#27AE60';
+    btn.style.color = '#fff';
+    input.value = '';
+    input.disabled = true;
+    btn.disabled = true;
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+
+</body>
+</html>
