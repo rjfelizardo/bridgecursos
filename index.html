@@ -720,6 +720,209 @@
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── CHAT ── */
+    .chat-bubble {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+    }
+    .chat-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+      font-size: 24px;
+    }
+    .chat-toggle:hover { transform: scale(1.08); }
+    .chat-toggle.open { background: var(--black3); }
+    .chat-notification {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      background: var(--red);
+      border-radius: 50%;
+      border: 2px solid var(--black);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .chat-window {
+      position: absolute;
+      bottom: 76px;
+      right: 0;
+      width: 340px;
+      background: #141414;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 520px;
+    }
+    .chat-window.open { display: flex; }
+    .chat-header {
+      background: var(--black);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .chat-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+    .chat-agent-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .chat-agent-status {
+      font-size: 11px;
+      color: #4ade80;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .chat-agent-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .chat-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.3);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .chat-close:hover { color: var(--white); }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 260px;
+      max-height: 320px;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .msg {
+      max-width: 88%;
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      animation: msgIn 0.25s ease;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg-agent {
+      background: #1e1e1e;
+      color: rgba(255,255,255,0.85);
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .msg-user {
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      color: var(--black);
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+      font-weight: 500;
+    }
+    .msg-typing {
+      background: #1e1e1e;
+      color: rgba(255,255,255,0.4);
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      font-size: 20px;
+      padding: 10px 16px;
+      letter-spacing: 2px;
+    }
+    .chat-footer {
+      padding: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      background: var(--black);
+    }
+    .chat-input {
+      flex: 1;
+      background: #1e1e1e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chat-input::placeholder { color: rgba(255,255,255,0.25); }
+    .chat-input:focus { border-color: var(--silver3); }
+    .chat-send {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--silver2), var(--silver));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+    .chat-send:hover { opacity: 0.85; }
+    .chat-wpp-btn {
+      display: block;
+      text-align: center;
+      background: #25D366;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 4px 0 0;
+      transition: opacity 0.2s;
+    }
+    .chat-wpp-btn:hover { opacity: 0.9; }
+
   </style>
 </head>
 <body>
@@ -1195,6 +1398,127 @@
       if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
+</script>
+
+
+<!-- CHAT IA -->
+<div class="chat-bubble" id="chatBubble">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <img class="chat-avatar" id="chatAvatar" src="" alt="Atendente" />
+      <div>
+        <div class="chat-agent-name" id="chatAgentName"></div>
+        <div class="chat-agent-status">Online agora</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-footer">
+      <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; gap:8px;">
+          <input class="chat-input" id="chatInput" placeholder="Digite sua mensagem..." onkeydown="if(event.key==='Enter') sendMessage()" />
+          <button class="chat-send" onclick="sendMessage()">→</button>
+        </div>
+        <a class="chat-wpp-btn" id="chatWpp" href="https://wa.me/5574999134241" target="_blank">💬 Falar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">
+    <span id="chatToggleIcon">💬</span>
+  </button>
+  <div class="chat-notification" id="chatNotif"></div>
+</div>
+
+<script>
+const AGENTS = [
+  { name: 'Ana Paula', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80', greeting: 'Olá! Sou a Ana Paula da Bridge 👋 Posso te ajudar a transformar seu conhecimento em um app profissional. O que você tem em mente?' },
+  { name: 'Camila',    avatar: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100&q=80', greeting: 'Oi! Sou a Camila da Bridge 😊 Aqui a gente transforma seu conteúdo em um app incrível. Me conta, qual é o seu curso ou projeto?' },
+  { name: 'Juliana',   avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80', greeting: 'Olá! Sou a Juliana da Bridge 🌟 Estou aqui para te ajudar a criar o app do seu curso. Qual nicho você atua?' },
+  { name: 'Carlos',    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80', greeting: 'E aí! Sou o Carlos da Bridge 👊 A gente constrói apps de curso do zero pra você. Me fala mais sobre seu projeto!' },
+  { name: 'Jonatas',   avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80', greeting: 'Olá! Sou o Jonatas da Bridge 🚀 Aqui transformamos seu conhecimento em um app profissional. Como posso te ajudar?' },
+  { name: 'Rafael',    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80', greeting: 'Oi! Sou o Rafael da Bridge 💡 Estou aqui pra tirar todas as suas dúvidas sobre criar seu app de curso. Por onde quer começar?' },
+];
+
+const agent = AGENTS[Math.floor(Math.random() * AGENTS.length)];
+let chatOpen = false;
+let isTyping = false;
+
+document.getElementById('chatAgentName').textContent = agent.name;
+document.getElementById('chatAvatar').src = agent.avatar;
+document.getElementById('chatWpp').href = `https://wa.me/5574999134241?text=Olá ${agent.name}! Vi a Bridge e quero saber mais sobre o app de curso.`;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const win = document.getElementById('chatWindow');
+  const notif = document.getElementById('chatNotif');
+  const icon = document.getElementById('chatToggleIcon');
+  win.classList.toggle('open', chatOpen);
+  notif.style.display = 'none';
+  icon.textContent = chatOpen ? '×' : '💬';
+  if (chatOpen && document.getElementById('chatMessages').children.length === 0) {
+    setTimeout(() => addMessage(agent.greeting, 'agent'), 400);
+  }
+}
+
+function addMessage(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg msg-${type}`;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-typing';
+  div.id = 'typingIndicator';
+  div.textContent = '• • •';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text || isTyping) return;
+  input.value = '';
+  isTyping = true;
+  addMessage(text, 'user');
+  showTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 300,
+        system: `Você é ${agent.name}, atendente da Bridge — uma empresa brasileira que transforma o conhecimento de especialistas em apps de curso profissionais para iOS e Android. Seja simpático, direto e natural, como uma conversa de WhatsApp. Responda em no máximo 3 frases curtas. Nunca diga que é uma IA. Se o visitante quiser fechar negócio, pedir preço ou falar com alguém, diga que pode continuar pelo WhatsApp e encerre com: "Me chama no WhatsApp! 💬". Informações da Bridge: Plano Starter R$1.997 (até 2 módulos, 16 aulas, 30 dias suporte). Plano Pro R$3.497 (módulos ilimitados, aulas interativas, certificado, publicação nas lojas, 90 dias suporte). Entrega em 7 dias úteis. Atendimento pelo WhatsApp 74999134241.`,
+        messages: [{ role: 'user', content: text }],
+      }),
+    });
+    const data = await res.json();
+    removeTyping();
+    const reply = data?.content?.[0]?.text || 'Opa, tive um probleminha aqui! Me chama no WhatsApp que te atendo direitinho 💬';
+    addMessage(reply, 'agent');
+  } catch(e) {
+    removeTyping();
+    addMessage('Opa! Tive uma instabilidade aqui. Me chama no WhatsApp que te atendo agora! 💬', 'agent');
+  }
+  isTyping = false;
+}
+
+// Notificação após 4 segundos
+setTimeout(() => {
+  if (!chatOpen) document.getElementById('chatNotif').style.display = 'block';
+}, 4000);
 </script>
 
 </body>
