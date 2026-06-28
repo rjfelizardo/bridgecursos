@@ -1504,7 +1504,7 @@ function removeTyping() {
   if (t) t.remove();
 }
 
-const GEMINI_KEY = 'AIzaSyAQAb8RN6JJiYd-Dl4d3hnfgqmicPImGBR_Li1v6zCpAHGAYMJQzg';
+const GEMINI_KEY = 'AQ.Ab8RN6IEuV6VGbAJaUGiLqRfPVvk8s3CGznOj2RhI-JGcABBrA';
 const SYSTEM_PROMPT = `Você é ${agent.name}, atendente da Bridge — empresa brasileira que transforma conhecimento em apps de curso profissionais para iOS e Android. Seja simpático, direto e natural como conversa de WhatsApp. Máximo 3 frases curtas. Nunca diga que é IA. Se o visitante quiser preço, fechar negócio ou falar com alguém, direcione pro WhatsApp: "Me chama no WhatsApp! 💬". Plano Starter R$1.997 (2 módulos, 16 aulas, 30 dias suporte). Plano Pro R$3.497 (módulos ilimitados, aulas interativas, certificado, publicação nas lojas, 90 dias suporte). Entrega em 7 dias úteis. WhatsApp 74999134241.`;
 const chatHistory = [];
 
@@ -1520,10 +1520,13 @@ async function sendMessage() {
 
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': GEMINI_KEY,
+        },
         body: JSON.stringify({
           system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: chatHistory,
