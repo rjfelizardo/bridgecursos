@@ -1504,6 +1504,10 @@ function removeTyping() {
   if (t) t.remove();
 }
 
+const GEMINI_KEY = 'AIzaSyAQAb8RN6JJiYd-Dl4d3hnfgqmicPImGBR_Li1v6zCpAHGAYMJQzg';
+const SYSTEM_PROMPT = `Você é ${agent.name}, atendente da Bridge — empresa brasileira que transforma conhecimento em apps de curso profissionais para iOS e Android. Seja simpático, direto e natural como conversa de WhatsApp. Máximo 3 frases curtas. Nunca diga que é IA. Se o visitante quiser preço, fechar negócio ou falar com alguém, direcione pro WhatsApp: "Me chama no WhatsApp! 💬". Plano Starter R$1.997 (2 módulos, 16 aulas, 30 dias suporte). Plano Pro R$3.497 (módulos ilimitados, aulas interativas, certificado, publicação nas lojas, 90 dias suporte). Entrega em 7 dias úteis. WhatsApp 74999134241.`;
+const chatHistory = [];
+
 async function sendMessage() {
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
@@ -1512,25 +1516,30 @@ async function sendMessage() {
   isTyping = true;
   addMessage(text, 'user');
   showTyping();
+  chatHistory.push({ role: 'user', parts: [{ text }] });
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 300,
-        system: `Você é ${agent.name}, atendente da Bridge — uma empresa brasileira que transforma o conhecimento de especialistas em apps de curso profissionais para iOS e Android. Seja simpático, direto e natural, como uma conversa de WhatsApp. Responda em no máximo 3 frases curtas. Nunca diga que é uma IA. Se o visitante quiser fechar negócio, pedir preço ou falar com alguém, diga que pode continuar pelo WhatsApp e encerre com: "Me chama no WhatsApp! 💬". Informações da Bridge: Plano Starter R$1.997 (até 2 módulos, 16 aulas, 30 dias suporte). Plano Pro R$3.497 (módulos ilimitados, aulas interativas, certificado, publicação nas lojas, 90 dias suporte). Entrega em 7 dias úteis. Atendimento pelo WhatsApp 74999134241.`,
-        messages: [{ role: 'user', content: text }],
-      }),
-    });
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: chatHistory,
+          generationConfig: { maxOutputTokens: 200, temperature: 0.8 },
+        }),
+      }
+    );
     const data = await res.json();
     removeTyping();
-    const reply = data?.content?.[0]?.text || 'Opa, tive um probleminha aqui! Me chama no WhatsApp que te atendo direitinho 💬';
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
+      || 'Opa, tive um probleminha! Me chama no WhatsApp que te atendo agora 💬';
+    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
     addMessage(reply, 'agent');
   } catch(e) {
     removeTyping();
-    addMessage('Opa! Tive uma instabilidade aqui. Me chama no WhatsApp que te atendo agora! 💬', 'agent');
+    addMessage('Opa! Tive uma instabilidade. Me chama no WhatsApp que te atendo agora! 💬', 'agent');
   }
   isTyping = false;
 }
