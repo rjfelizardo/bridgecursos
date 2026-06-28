@@ -729,21 +729,39 @@
       z-index: 999;
     }
     .chat-toggle {
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--silver2), var(--silver));
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
       transition: transform 0.2s;
-      font-size: 24px;
+      padding: 0;
+      overflow: hidden;
+      background: var(--black3);
     }
     .chat-toggle:hover { transform: scale(1.08); }
-    .chat-toggle.open { background: var(--black3); }
+    .chat-toggle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2.5px solid var(--silver);
+      transition: opacity 0.2s;
+    }
+    .chat-toggle.open img { opacity: 0.3; }
+    .chat-toggle-x {
+      position: absolute;
+      font-size: 22px;
+      color: var(--white);
+      font-weight: 300;
+      display: none;
+      pointer-events: none;
+    }
+    .chat-toggle.open .chat-toggle-x { display: block; }
     .chat-notification {
       position: absolute;
       top: -4px;
@@ -1424,7 +1442,8 @@
     </div>
   </div>
   <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">
-    <span id="chatToggleIcon">💬</span>
+    <img id="chatToggleImg" src="" alt="Atendente" />
+    <span class="chat-toggle-x">×</span>
   </button>
   <div class="chat-notification" id="chatNotif"></div>
 </div>
@@ -1444,6 +1463,7 @@ let chatOpen = false;
 let isTyping = false;
 
 document.getElementById('chatAgentName').textContent = agent.name;
+document.getElementById('chatToggleImg').src = agent.avatar;
 document.getElementById('chatAvatar').src = agent.avatar;
 document.getElementById('chatWpp').href = `https://wa.me/5574999134241?text=Olá ${agent.name}! Vi a Bridge e quero saber mais sobre o app de curso.`;
 
@@ -1454,7 +1474,7 @@ function toggleChat() {
   const icon = document.getElementById('chatToggleIcon');
   win.classList.toggle('open', chatOpen);
   notif.style.display = 'none';
-  icon.textContent = chatOpen ? '×' : '💬';
+  document.getElementById('chatToggle').classList.toggle('open', chatOpen);
   if (chatOpen && document.getElementById('chatMessages').children.length === 0) {
     setTimeout(() => addMessage(agent.greeting, 'agent'), 400);
   }
