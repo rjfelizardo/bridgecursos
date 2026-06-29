@@ -1343,7 +1343,7 @@
     <p>Deixe seu e-mail e entraremos em contato em até 24 horas para entender seu projeto.</p>
     <div class="cta-form">
       <input type="email" class="cta-input" placeholder="Seu melhor e-mail" id="cta-email" />
-      <button class="cta-btn" onclick="handleSubmit()">Quero meu app →</button>
+      <a class="cta-btn" id="ctaWppBtn" href="https://wa.me/5574999134241" target="_blank" onclick="handleSubmit(event)">Quero meu app →</a>
     </div>
     <p class="cta-note">Sem spam. Sem compromisso. Só uma conversa.</p>
   </div>
@@ -1393,16 +1393,16 @@
   }
 
   // CTA
-  function handleSubmit() {
+  function handleSubmit(e) {
     const input = document.getElementById('cta-email');
     if (!input.value || !input.value.includes('@')) {
+      if (e) e.preventDefault();
       input.style.borderColor = '#C0392B';
       input.focus();
       return;
     }
-    const email = encodeURIComponent(input.value);
     const msg = encodeURIComponent('Olá! Vi o site da Bridge e quero criar meu app de curso. Meu e-mail é: ' + input.value);
-    window.open('https://wa.me/5574999134241?text=' + msg, '_blank');
+    document.getElementById('ctaWppBtn').href = 'https://wa.me/5574999134241?text=' + msg;
   }
 
   // Smooth scroll
