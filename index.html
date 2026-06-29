@@ -1395,18 +1395,14 @@
   // CTA
   function handleSubmit() {
     const input = document.getElementById('cta-email');
-    const btn = input.nextElementSibling;
     if (!input.value || !input.value.includes('@')) {
       input.style.borderColor = '#C0392B';
       input.focus();
       return;
     }
-    btn.textContent = 'Enviado! ✓';
-    btn.style.background = '#27AE60';
-    btn.style.color = '#fff';
-    input.value = '';
-    input.disabled = true;
-    btn.disabled = true;
+    const email = encodeURIComponent(input.value);
+    const msg = encodeURIComponent('Olá! Vi o site da Bridge e quero criar meu app de curso. Meu e-mail é: ' + input.value);
+    window.open('https://wa.me/5574999134241?text=' + msg, '_blank');
   }
 
   // Smooth scroll
