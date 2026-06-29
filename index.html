@@ -1504,8 +1504,7 @@ function removeTyping() {
   if (t) t.remove();
 }
 
-const GROQ_KEY = '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';
-const chatHistory = [{ role: 'system', content: `Você é ${agent.name}, atendente da Bridge — empresa brasileira que transforma conhecimento em apps de curso profissionais para iOS e Android. Seja simpático, direto e natural como conversa de WhatsApp. Máximo 3 frases curtas. Nunca diga que é IA. Se o visitante quiser preço, fechar negócio ou falar com alguém, direcione pro WhatsApp: "Me chama no WhatsApp! 💬". Plano Starter R$1.997 (2 módulos, 16 aulas, 30 dias suporte). Plano Pro R$3.497 (módulos ilimitados, aulas interativas, certificado, publicação nas lojas, 90 dias suporte). Entrega em 7 dias úteis. WhatsApp 74999134241.` }];
+const chatHistory = [];
 
 async function sendMessage() {
   const input = document.getElementById('chatInput');
@@ -1517,11 +1516,14 @@ async function sendMessage() {
   showTyping();
   chatHistory.push({ role: 'user', content: text });
 
+  const systemPrompt = 'Voce e ' + agent.name + ', atendente da Bridge, empresa brasileira que transforma conhecimento em apps de curso profissionais para iOS e Android. Seja simpatico, direto e natural como conversa de WhatsApp. Maximo 3 frases curtas. Nunca diga que e IA. Se o visitante quiser preco ou fechar negocio, diga: Me chama no WhatsApp! Plano Starter R$1.997 (2 modulos, 16 aulas, 30 dias suporte). Plano Pro R$3.497 (modulos ilimitados, aulas interativas, certificado, publicacao nas lojas, 90 dias suporte). Entrega em 7 dias uteis. WhatsApp 74999134241.';
+  const messages = [{ role: 'system', content: systemPrompt }, ...chatHistory];
+
   try {
     const res = await fetch('https://bridge-chat.rjfelizardo.workers.dev/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: chatHistory }),
+      body: JSON.stringify({ messages: messages }),
     });
     const data = await res.json();
     removeTyping();
