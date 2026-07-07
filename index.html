@@ -1516,7 +1516,7 @@ async function sendMessage() {
   const messages = [{ role: 'system', content: systemPrompt }, ...chatHistory];
 
   try {
-    const res = await fetch('https://bridge-chat.rjfelizardo.workers.dev/', {
+    const res = await fetch('https://bridge-chat.bridgeatravessia.workers.dev/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: messages }),
